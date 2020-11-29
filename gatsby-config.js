@@ -6,13 +6,20 @@ const shouldAnalyseBundle = process.env.ANALYSE_BUNDLE
 
 module.exports = {
   siteMetadata: {
-    siteTitleAlt: `Minimal Blog - Gatsby Theme`,
+    siteTitle: 'Kaan Uzdogan',
+    siteTitleAlt: `Kaan Uzdogan - Personal Site`,
+    siteUrl: `https://kaanuzdogan.com`,
+    author: `@kaanuzdogan`,
+    siteLanguage: 'en',
+    siteImage: '/banner.jpg',
+    siteDescription: 'Personal Blog and Website of Kaan Uzdogan'
   },
   plugins: [
     {
       resolve: `@lekoarts/gatsby-theme-minimal-blog`,
       // See the theme's README for all available options
       options: {
+        feedTitle: 'Kaan Uzdogan\'s Personal Site',
         navigation: [
           {
             title: `Blog`,
@@ -26,11 +33,11 @@ module.exports = {
         externalLinks: [
           {
             name: `Twitter`,
-            url: `https://twitter.com/lekoarts_de`,
+            url: `https://twitter.com/kaanuzdogan`,
           },
           {
             name: `Instagram`,
-            url: `https://www.instagram.com/lekoarts.de/`,
+            url: `https://www.instagram.com/kuzdogan`,
           },
         ],
       },
