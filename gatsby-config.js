@@ -6,20 +6,21 @@ const shouldAnalyseBundle = process.env.ANALYSE_BUNDLE
 
 module.exports = {
   siteMetadata: {
-    siteTitle: 'Kaan Uzdogan',
-    siteTitleAlt: `Kaan Uzdogan - Personal Site`,
+    siteTitle: 'Kaan Uzdoğan',
+    siteTitleAlt: `Kaan Uzdoğan - Personal Site`,
+    siteHeadline: 'Kaan Uzdoğan - Personal Site',
     siteUrl: `https://kaanuzdogan.com`,
     author: `@kaanuzdogan`,
     siteLanguage: 'en',
     siteImage: '/banner.jpg',
-    siteDescription: 'Personal Blog and Website of Kaan Uzdogan'
+    siteDescription: 'Personal Blog and Website of Kaan Uzdogan',
   },
   plugins: [
     {
       resolve: `@lekoarts/gatsby-theme-minimal-blog`,
       // See the theme's README for all available options
       options: {
-        feedTitle: 'Kaan Uzdogan\'s Personal Site',
+        feedTitle: 'Kaan Uzdoğan\'s Personal Site',
         navigation: [
           {
             title: `Blog`,
@@ -40,12 +41,15 @@ module.exports = {
             url: `https://www.instagram.com/kuzdogan`,
           },
         ],
+        formatString: 'DD MMMM YYYY'
       },
     },
     {
-      resolve: `gatsby-plugin-google-analytics`,
+      resolve: `gatsby-plugin-google-gtag`,
       options: {
-        trackingId: process.env.GOOGLE_ANALYTICS_ID,
+        trackingIds: [
+          process.env.GOOGLE_MEASUREMENT_ID, // Google Analytics / GA
+        ],
       },
     },
     `gatsby-plugin-sitemap`,
