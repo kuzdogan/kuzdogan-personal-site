@@ -22,8 +22,8 @@ const HeaderTitle = () => {
 
         <div sx={{
           display: 'inline-block',
-          backgroundColor: theme => isDark ? theme.colors.heading : theme.colors.heading,
-          color: theme => isDark ? theme.colors.background : theme.colors.background,
+          backgroundColor: theme => theme.colors.heading,
+          color: theme => theme.colors.background,
           padding: "0 1px",
           margin: "0 1px",
           height: ["1.8rem", "2.2rem"]
