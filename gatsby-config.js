@@ -1,7 +1,7 @@
 require(`dotenv`).config({
   path: `.env`,
 })
-
+const newsletterFeed = require(`./src/@lekoarts/gatsby-theme-minimal-blog/utils/newsletterFeed`)
 const shouldAnalyseBundle = process.env.ANALYSE_BUNDLE
 
 module.exports = {
@@ -43,6 +43,10 @@ module.exports = {
         ],
         formatString: 'DD MMMM YYYY'
       },
+    },
+    {
+      resolve: `gatsby-plugin-feed`,
+      options: newsletterFeed('Kaan Uzdoğan\'s Personal Site'),
     },
     {
       resolve: `gatsby-plugin-google-gtag`,
