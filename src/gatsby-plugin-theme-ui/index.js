@@ -11,6 +11,8 @@ const theme = merge(tailwind, {
     toggleIcon: tailwind.colors.gray[8],
     heading: tailwind.colors.black,
     divide: tailwind.colors.gray[4],
+    spotifyGreen: `#1DB954`,
+    spotifyBlack: `#191414`,
     modes: {
       dark: {
         text: tailwind.colors.gray[4],
@@ -144,6 +146,12 @@ const theme = merge(tailwind, {
       lineHeight: `heading`,
       color: `heading`,
     },
+    overflow: {
+      display: 'inline-block',
+      whiteSpace: `nowrap`,
+      overflow: `hidden`,
+      textOverflow: `ellipsis`
+    }
   },
   copyButton: {
     backgroundColor: transparentize(`primary`, 0.8),
