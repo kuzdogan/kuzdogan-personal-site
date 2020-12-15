@@ -4,7 +4,7 @@ import { jsx, useColorMode } from "theme-ui";
 
 const Spotify = () => {
   const thisRef = useRef(null);
-  const [isBottom, setBottom] = useState(false)
+  const [scrolledToFooter, setScrolledToFooter] = useState(false)
   const [isDisplayed, setDisplayed] = useState(true);
   const [playing, setPlaying] = useState({});
   const [colorMode, setColorMode] = useColorMode();
@@ -14,24 +14,29 @@ const Spotify = () => {
     const footer = document.querySelector('footer');
 
     document.addEventListener("scroll", checkScroll)
-
+    let elemHeight = thisRef.current.offsetHeight;
+    
+    let prevY = window.scrollY + window.innerHeight;
     function checkScroll() {
-      if (!footer || !thisRef.current) {
-        return
+      let footerTop = getRectTop(footer) + window.scrollY;
+      let windowBottomY = window.scrollY + window.innerHeight;
+      if (prevY < windowBottomY) {  // Scroll Down
+        if (windowBottomY > footerTop)
+          setScrolledToFooter(true)
+      } else { // Scroll Up
+        if (windowBottomY <= footerTop)
+          setScrolledToFooter(false)
       }
-      if (window.scrollY + window.innerHeight < (getRectTop(footer) + window.scrollY)) {
-        setBottom(false) // restore when you scroll up
-      }
-      let divBottom = getRectTop(thisRef.current) + window.scrollY + thisRef.current.offsetHeight - 10;
-      let footerTop = getRectTop(footer) + window.scrollY
-      if (divBottom >= footerTop) {
-        setBottom(true)
-      }
-      function getRectTop(el) {
-        var rect = el.getBoundingClientRect();
-        return rect.top;
-      }
+      prevY = windowBottomY
+      // scrolledToFooter ? footerTop += elemHeight : null;
+      console.log('Footer Y ' + footerTop)
+      console.log('Window Y ' + windowBottomY)
     };
+
+    function getRectTop(el) {
+      var rect = el.getBoundingClientRect();
+      return rect.top;
+    }
     // Clean-up on unmount
     return () => document.removeEventListener("scroll", checkScroll)
   }, [thisRef])
@@ -57,7 +62,7 @@ const Spotify = () => {
     <div
       ref={thisRef}
       sx={{
-        position: isBottom ? 'relative' : 'fixed',
+        position: scrolledToFooter ? 'relative' : 'fixed',
         bottom: 0,
         right: 0,
         display: 'flex',
