@@ -15,9 +15,10 @@ const Footer = () => {
         a: {
           variant: `links.secondary`,
         },
-        flexDirection: [`column`, `column`, `row`],
+        flexDirection: [`row`],
         variant: `dividers.top`,
-        paddingTop: '2rem'
+        paddingTop: '2rem',
+        fontSize: [`0.6rem`, `0.75rem`]
       }}
     >
       <div>

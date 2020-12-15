@@ -1,9 +1,8 @@
 /** @jsx jsx */
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { jsx, useColorMode } from "theme-ui";
 
 const Spotify = () => {
-  const thisRef = useRef(null);
   const [scrolledToFooter, setScrolledToFooter] = useState(false)
   const [isDisplayed, setDisplayed] = useState(true);
   const [playing, setPlaying] = useState({});
@@ -37,7 +36,7 @@ const Spotify = () => {
     }
     // Clean-up on unmount
     return () => document.removeEventListener("scroll", checkScroll)
-  }, [thisRef])
+  }, [])
 
   // Fetch now listening.
   useEffect(() => {
@@ -58,7 +57,6 @@ const Spotify = () => {
     return null;
   return (
     <div
-      ref={thisRef}
       sx={{
         position: scrolledToFooter ? 'relative' : 'fixed',
         bottom: 0,
@@ -71,7 +69,7 @@ const Spotify = () => {
         sx={{
           width: ['100%', 250, 250],
           background: theme => isDark ? theme.colors.spotifyGreen : theme.colors.spotifyBlack,
-          padding: '8px',
+          padding: '12px',
           color: theme => isDark ? theme.colors.spotifyBlack : theme.colors.spotifyGreen
         }}
       >

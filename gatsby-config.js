@@ -40,6 +40,10 @@ module.exports = {
             name: `Instagram`,
             url: `https://www.instagram.com/kuzdogan`,
           },
+          {
+            name: `Github`,
+            url: `https://github.com/kuzdogan`
+          }
         ],
         formatString: 'DD MMMM YYYY'
       },
