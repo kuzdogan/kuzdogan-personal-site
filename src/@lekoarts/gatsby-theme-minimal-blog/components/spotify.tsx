@@ -13,9 +13,7 @@ const Spotify = () => {
   useEffect(() => { // Set display fixed until scrolling to the bottom.
     const footer = document.querySelector('footer');
 
-    document.addEventListener("scroll", checkScroll)
-    let elemHeight = thisRef.current.offsetHeight;
-    
+    document.addEventListener("scroll", checkScroll)    
     let prevY = window.scrollY + window.innerHeight;
     function checkScroll() {
       let footerTop = getRectTop(footer) + window.scrollY;
@@ -67,26 +65,38 @@ const Spotify = () => {
         right: 0,
         display: 'flex',
         justifyContent: 'flex-end',
+        width: `100%`
       }}>
       <div
         sx={{
-          width: ['100%', 300, 300],
+          width: ['100%', 250, 250],
           background: theme => isDark ? theme.colors.spotifyGreen : theme.colors.spotifyBlack,
-          padding: '16px',
+          padding: '8px',
           color: theme => isDark ? theme.colors.spotifyBlack : theme.colors.spotifyGreen
         }}
       >
-        <div sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingBottom: '8px' }}>
+        <div sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingBottom: '4px', fontSize:[0] }}>
           <b>Now I'm Listening</b>
           <a target="_blank" sx={{ display: 'flex', alignItems: 'center', ":hover": { opacity: 0.5 } }} href="https://open.spotify.com/user/11101586339">
-            <img src={isDark ? '/spotify-black.svg' : '/spotify.svg'} width='24px' />
+            <img
+              sx={{ 
+                width: [4]
+              }}
+              src={isDark ? '/spotify-black.svg' : '/spotify.svg'}
+            />
           </a>
         </div>
 
         <div sx={{ display: 'flex' }}>
           <div>
             <a target="_blank" sx={{ ":hover": { opacity: 0.5 } }} href={playing.songUrl}>
-              <img src={playing.albumImageUrl} width="64" height="64" />
+              <img
+                sx={{
+                  display: 'block',
+                  width: [8, 10]
+                }}
+                src={playing.albumImageUrl}
+              />
             </a>
           </div>
           <div sx={{
@@ -96,8 +106,8 @@ const Spotify = () => {
             margin: '0 8px',
             justifyContent: 'center'
           }}>
-            <a target="_blank" sx={{ variant: `text.overflow`, color: theme => isDark ? theme.colors.spotifyBlack : theme.colors.spotifyGreen }} href={playing.songUrl} >{playing.title}</a>
-            <span sx={{ variant: `text.overflow`, color: theme => theme.colors.background, fontSize: '10pt' }}>{playing.artist}</span>
+            <a target="_blank" sx={{ variant: `text.overflow`, color: theme => isDark ? theme.colors.spotifyBlack : theme.colors.spotifyGreen, fontSize: [0]}} href={playing.songUrl} >{playing.title}</a>
+            <span sx={{ variant: `text.overflow`, color: theme => theme.colors.background, fontSize: [`0.5rem`, `0.6rem`] }}>{playing.artist}</span>
           </div>
         </div>
       </div>
