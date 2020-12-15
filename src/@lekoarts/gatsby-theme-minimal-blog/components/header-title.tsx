@@ -18,7 +18,7 @@ const HeaderTitle = () => {
       aria-label={`${siteTitle} - Back to home`}
       sx={{ color: `heading`, textDecoration: `none` }}
     >
-      <div sx={{ fontFamily: "Courier Prime", my: 0, fontWeight: `medium`, fontSize: [3, 4] }}>kaan{" "}
+      <div sx={{ fontFamily: "Courier Prime", my: 0, fontWeight: `medium`, fontSize: [4, 5] }}>kaan{" "}
 
         <div sx={{
           display: 'inline-block',
