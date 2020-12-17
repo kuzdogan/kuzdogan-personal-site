@@ -25,9 +25,6 @@ const Spotify = () => {
           setScrolledToFooter(false)
       }
       prevY = windowBottomY
-      // scrolledToFooter ? footerTop += elemHeight : null;
-      console.log('Footer Y ' + footerTop)
-      console.log('Window Y ' + windowBottomY)
     };
 
     function getRectTop(el) {
@@ -45,11 +42,9 @@ const Spotify = () => {
         if (!res.isPlaying)
           return setDisplayed(false);
         setPlaying(res);
-        console.log(res)
       })
       .catch(err => {
         setDisplayed(false);
-        console.error(err);
       })
   }, [])
 
