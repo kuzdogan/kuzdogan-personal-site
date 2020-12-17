@@ -1,11 +1,11 @@
 /** @jsx jsx */
-import { jsx, useColorMode } from "theme-ui"
 import { Flex } from "@theme-ui/components"
+import { jsx, useColorMode } from "theme-ui"
 import useMinimalBlogConfig from "../hooks/use-minimal-blog-config"
 import ColorModeToggle from "./colormode-toggle"
-import Navigation from "./navigation"
-import HeaderTitle from "./header-title"
 import HeaderExternalLinks from "./header-external-links"
+import HeaderTitle from "./header-title"
+import Navigation from "./navigation"
 
 const Header = () => {
   const { navigation: nav } = useMinimalBlogConfig()
@@ -17,7 +17,7 @@ const Header = () => {
   }
 
   return (
-    <header sx={{ mb: [5, 6] }}>
+    <header sx={{ mb: [3, 5] }}>
       <Flex sx={{ alignItems: `center`, justifyContent: `space-between` }}>
         <HeaderTitle />
         <ColorModeToggle isDark={isDark} toggle={toggleColorMode} />

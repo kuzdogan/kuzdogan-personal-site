@@ -149,7 +149,7 @@ const theme = merge(tailwind, {
     container: {
       padding: [3, 4],
       maxWidth: `1024px`,
-    },
+    }
   },
   text: {
     heading: {
@@ -219,6 +219,11 @@ const theme = merge(tailwind, {
       color: `text`,
     },
   },
+  flexCenter: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 })
 
 export default theme

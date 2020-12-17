@@ -1,15 +1,16 @@
 /** @jsx jsx */
-import Layout from "@lekoarts/gatsby-theme-minimal-blog/src/components/layout"
-import Listing from "@lekoarts/gatsby-theme-minimal-blog/src/components/listing"
-import Title from "@lekoarts/gatsby-theme-minimal-blog/src/components/title"
-import useMinimalBlogConfig from "@lekoarts/gatsby-theme-minimal-blog/src/hooks/use-minimal-blog-config"
-import useSiteMetadata from "@lekoarts/gatsby-theme-minimal-blog/src/hooks/use-site-metadata"
-import { visuallyHidden } from "@lekoarts/gatsby-theme-minimal-blog/src/styles/utils"
-import replaceSlashes from "@lekoarts/gatsby-theme-minimal-blog/src/utils/replaceSlashes"
 import { Link } from "gatsby"
 import { jsx } from "theme-ui"
+import Layout from "../components/layout"
+import Listing from "../components/listing"
+import Title from "../components/title"
+import useMinimalBlogConfig from "../hooks/use-minimal-blog-config"
+import useSiteMetadata from "../hooks/use-site-metadata"
+import { visuallyHidden } from "../styles/utils"
 // @ts-ignore
 import Hero from "../texts/hero"
+import replaceSlashes from "../utils/replaceSlashes"
+import NewsletterForm from './newsletterform'
 import Spotify from './spotify'
 
 type PostsProps = {
@@ -35,8 +36,16 @@ const Homepage = ({ posts }: PostsProps) => {
   return (
     <Layout>
       <h1 sx={visuallyHidden}>{siteTitle}</h1>
-      <section sx={{ mb: [5, 6, 7], p: { fontSize: [1, 2, 3], mt: 2 }, variant: `section_hero` }}>
+      <section sx={{ mb: [4, 5], p: { fontSize: [1, 2, 3], mt: [1, 2] }, variant: `section_hero` }}>
         <Hero />
+      </section>
+      <section sx={{ mb: [4, 5], fontSize: [1, 2] }}>
+        <h2
+          sx={{ fontWeight: `medium`, fontSize: [3, 4], fontFamily: `heading`, lineHeight: `heading`, color: `heading`, textAlign: ["left", "center"] }}
+        >
+          Subscribe to my blog posts
+        </h2>
+        <NewsletterForm />
       </section>
       <Title text="Latest Posts">
         <Link to={replaceSlashes(`/${basePath}/${blogPath}`)}>Read all posts</Link>
