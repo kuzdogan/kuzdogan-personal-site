@@ -25,6 +25,8 @@ const theme = merge(tailwind, {
     divide: tailwind.colors.gray[4],
     spotifyGreen: `#1DB954`,
     spotifyBlack: `#191414`,
+    success: `#4BCA81`,
+    danger: `#FF3860`,
     modes: {
       dark: {
         text: tailwind.colors.gray[4],
@@ -223,6 +225,16 @@ const theme = merge(tailwind, {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  alerts: {
+    success: {
+      backgroundColor: `success`,
+      fontWeight: `medium`
+    },
+    error: {
+      backgroundColor: `danger`,
+      fontWeight: `medium`
+    }
   }
 })
 

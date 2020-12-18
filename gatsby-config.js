@@ -95,5 +95,12 @@ module.exports = {
         openAnalyzer: false,
       },
     },
+    {
+      resolve: 'gatsby-plugin-mailchimp',
+      options: {
+        endpoint: 'https://kaanuzdogan.us7.list-manage.com/subscribe/post?u=86ff29b1f460007d00cf6f4f6&amp;id=341da9b4a6',
+        timeout: 3500,
+      },
+    },
   ].filter(Boolean),
 }
