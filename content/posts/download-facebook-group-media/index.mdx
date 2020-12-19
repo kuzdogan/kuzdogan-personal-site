@@ -1,0 +1,265 @@
+---
+title: Downloading all images and videos from a private Facebook group
+date: 2020-12-19
+description: A semi-automated way to download all images and videos in a Facebook group
+tags:
+  - javascript
+  - Facebook
+banner: ./fbgroup.jpeg
+---
+
+# The Problem
+
+If you want to download your photos in your albums or the albums in your groups Facebook packs them and lets you download easily. However if you have your photos uploaded directly to the group, without an album, you need to download them one by one. Similary for the videos there is no way to export easily. You can't download them directly and need to use some tricks to reach the video file. Here I use some simple browser scripting to automate the process.
+
+# Method\#1
+
+This method ends up downloading all images in a **shrinked resolution**. But is quite fast. And you can't download the videos. Skip to **Method\#2** if you need full res images or the videos.
+
+## Code
+
+Here's the script. Open a text editor and paste it there.
+
+```js
+// This downloads smaller resolutions.
+const imagesContainerSelector = "<selector-here>";
+const downloadInterval = 200; //ms
+const scrollInterval = 100;
+
+const container = document.querySelector(imagesContainerSelector);
+
+// Scroll to bottom
+autoScroll()
+  .then(() => {
+    let links = getAllLinks(container);
+    console.log("Will download " + links.length + "files!");
+    return downloadAll(links, downloadInterval);
+  })
+  .then(() => {
+    console.log("Downloaded all files successfully!");
+  });
+
+// https://stackoverflow.com/questions/51529332/puppeteer-scroll-down-until-you-cant-anymore
+function autoScroll() {
+  return new Promise((resolve, reject) => {
+    var totalHeight = 0;
+    var distance = 50;
+    var timer = setInterval(() => {
+      var scrollHeight = document.body.scrollHeight;
+      window.scrollBy(0, distance);
+      totalHeight += distance;
+
+      if (totalHeight >= scrollHeight) {
+        clearInterval(timer);
+        resolve();
+      }
+    }, scrollInterval);
+  });
+}
+
+function downloadAll(links, timeout) {
+  return new Promise(async (resolve, reject) => {
+    for (let i = 0; i < links.length; i++) {
+      download(links[i], `${i}.jpg`);
+      // console.log(links[i])
+      await timeoutPromise(timeout);
+    }
+  });
+}
+
+function timeoutPromise(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
+// https://stackoverflow.com/questions/3916191/download-data-url-file
+function download(url, filename) {
+  fetch(url).then(function (t) {
+    return t.blob().then((b) => {
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(b);
+      a.setAttribute("download", filename);
+      a.click();
+    });
+  });
+}
+
+function getAllLinks(container) {
+  let array = [];
+  for (let i = 1; i <= container.childElementCount; i++) {
+    let link = container
+      .querySelector(`div:nth-of-type(${i}) > div > div > div > div > a > img`)
+      .getAttribute("src");
+    array.push(link);
+  }
+  return array;
+}
+```
+
+## Grab the CSS selector of images wrapper
+
+Here you need to fill `imagesContainerSelector` with the selector of the wrapping div of the photos. In the group's photos page it looks like below. In the tile of photos move the mouse over the first photo and click inspect.
+
+![Where to click on the group page](./method1-1.jpg)
+
+This will take you to the `<img>` element in the developer tools. But this is not what we want.
+
+![img element in the developer tools](./method1-2.jpg)
+
+Instead collapse the elements until you reach the parent `<div>` of the whole tile. Should look like this.
+
+![parent div in devtools](./method1-3.jpg)
+
+Right click on the element and copy the CSS selector of the element
+
+![copy css selector](./method1-4.jpg)
+
+Paste the copied selector to `imagesContainerSelector`.
+
+```js
+const imagesContainerSelector = "#mount_0_0 > div > div:nth-child(1) >......";
+```
+
+Luckily Facebook keeps the class names when viewing photos and we can exploit this.
+
+## Run the script
+
+That was all we need. Copy the code from your text editor. Go back to the page. Press F12 to open the developer console. Paste the code and press Return. The script will start to scroll until the bottom to load all images and start downloading them.
+
+As stated, this will download images in a lower resolution and won't download videos.
+
+---
+
+# Method\#2
+
+This time we will iterate over images by viewing each image. This will not only show the images but also show the videos in the group. We will download the images in full resolution and keep the video links to download them seperately.
+
+**This method uses huge memory and it may crash**. This is because of an issue with Facebook Web when you view consecutive photos, each photo increases the app's memory footprint by around 20K and after some N photos it bloats so much that it crashes. I've reported the issue to Facebook and posted a [Stackoverflow question](https://stackoverflow.com/questions/65142859/viewing-photos-in-facebook-causes-memory-bloat-a-bug-in-fb) and will update if it gets resolved. Until then here's the solution and what to do if it crashes.
+
+## Code
+
+Paste the code into a text editor.
+
+```javascript
+// Downloads original sizes and keeps video links.
+const nextButtonSelector = '[aria-label="Next photo"]';
+
+const imageSelector = "<paste-here>";
+
+const downloadInterval = 2000; //ms
+
+let nextButton;
+let imageLink;
+let videoLink;
+let prevImageLink;
+let prevVideoLink;
+let i = 1;
+let videoLinks = [];
+console.log("Starting downloads...");
+
+iterateMedia().then(() => {
+  console.log("Here are the links to the videos:");
+  console.log(videoLinks);
+});
+
+function iterateMedia() {
+  return new Promise((resolve) => {
+    let interval = setInterval(() => {
+      nextButton = document.querySelector(nextButtonSelector);
+      if (document.querySelector(imageSelector)) {
+        // is photo
+        imageLink = document.querySelector(imageSelector).getAttribute("src");
+        if (prevImageLink === imageLink) {
+          // end
+          clearInterval(interval);
+          console.log("Downloaded all images!");
+          console.log("Total: " + i + " images");
+          console.log("Total: " + videoLinks.length + " videos");
+          resolve();
+        } else {
+          console.log("Downloading image " + i);
+          console.log("Photo: " + window.location.href);
+          window.localStorage.setItem("lastImageURL", window.location.href);
+          download(imageLink, `${i++}.jpg`);
+          prevImageLink = imageLink;
+        }
+      } else {
+        // is video
+        console.log("Video: " + window.location.href);
+        videoLink = videoLinks.push(window.location.href);
+        if (prevVideoLink === videoLink) {
+          // end
+          console.log("Downloaded all images!");
+          console.log("Total: " + i + " images");
+          console.log("Total: " + videoLinks.length + " videos");
+          resolve();
+        } else {
+          window.localStorage.setItem("videos", videoLinks);
+          prevVideoLink = videoLink;
+        }
+      }
+      nextButton.click();
+    }, downloadInterval);
+  });
+}
+
+// https://stackoverflow.com/questions/3916191/download-data-url-file
+function download(url, filename) {
+  fetch(url).then(function (t) {
+    return t.blob().then((b) => {
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(b);
+      a.setAttribute("download", filename);
+      a.click();
+      a.remove();
+    });
+  });
+}
+```
+
+## Grab CSS Selectors
+
+Again, open the media tab of the group or the page. This time open the first item in the gallery. Right click on the image and select inspect.
+
+![inspect img](./method2-1.jpg)
+
+On the Developer Tools window right click on the `<img>` element and click Copy Selector. Paste this to the `imageSelector` variable in the code.
+
+![copy css selector of img](./method2-2.jpg)
+
+## Run the script
+
+Finally copy the whole code to the browser console and paste it. Press enter and run the script.
+
+### When crashes
+
+Now, if you're lucky or don't have too many images, the script will execute successfully. Usually the page will crash after a while. For that we keep the `lastImage` and `videos` in the Local Storage of the page. You can find it in the Application tab after pressing F12 and under `www.facebook.com`. Make sure you save those before starting new.
+
+Now, you can check the last image it downloaded, open the next one in the group, and before pasting just change the below line to the `lastImage` number + 1 instead of `1`. So if `lastImage` was 521
+
+```js
+let i = 522;
+```
+
+Make sure you also saved `videos` from the Local Storage into a file called `videos.csv` and run the script. Repeat if the page crashes again. Append all videos into the same file after each crash.
+
+## Videos
+
+If all goes well, you should have a comma-seperated list of video links stored in `videos` Local Storage variable. Save them into a file called `videos.csv`. The file should look like this (but longer):
+
+```
+https://www.facebook.com/268490061405/videos/403980490753831,https://www.facebook.com/268490061405/videos/388733212392115,https://www.facebook.com/268490061405/videos/2784268961848584,https://www.facebook.com/268490061405/videos/1035479846953596
+```
+
+We will use the good old [youtube-dl](https://github.com/ytdl-org/youtube-dl) to download the videos. As of `youtube-dl` update 12.12.2020 private video downloads for Facebook work, but this can break anytime. For public videos you don't need to provide username and password.
+
+Execute the following command to download all videos. You need to turn two factor authentication for `youtube-dl` to log-in.
+
+```bash
+awk '{printf $0 "\n"}' RS="," videos.csv | xargs -p youtube-dl -u <your-fb-username> -p <your-fb-password>
+```
+
+This will take some time depending on how many videos you have.
+
+And there you go! You should now have a complete back-up of a Facebook group/page.
