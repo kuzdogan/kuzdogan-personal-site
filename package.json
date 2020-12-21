@@ -30,7 +30,8 @@
     "isomorphic-unfetch": "^3.1.0",
     "querystring": "^0.2.0",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "react-icons": "^4.1.0"
   },
   "devDependencies": {
     "cross-env": "^7.0.2"
