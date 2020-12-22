@@ -254,7 +254,7 @@ https://www.facebook.com/268490061405/videos/403980490753831,https://www.faceboo
 
 We will use the good old [youtube-dl](https://github.com/ytdl-org/youtube-dl) to download the videos. As of `youtube-dl` update 12.12.2020 private video downloads for Facebook work, but this can break anytime. For public videos you don't need to provide username and password.
 
-Execute the following command to download all videos. You need to turn two factor authentication for `youtube-dl` to log-in.
+Execute the following command to download all videos. You need to turn off two factor authentication for `youtube-dl` to log-in.
 
 ```bash
 awk '{printf $0 "\n"}' RS="," videos.csv | xargs -p youtube-dl -u <your-fb-username> -p <your-fb-password>
