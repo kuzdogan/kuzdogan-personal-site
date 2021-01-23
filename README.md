@@ -42,3 +42,10 @@ Returns a JSON file of format:
   "title":"Jeanie J"
 }
 ```
+
+## To-Do
+
+- Add comments
+- Test if newsletter is being sent when a new post is made
+- Avoid images being too high
+- Keep images smaller and enlarge images on click
