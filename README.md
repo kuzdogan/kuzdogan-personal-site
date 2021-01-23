@@ -1,8 +1,20 @@
 # kaanuzdogan.com
 
-My personal blog and website repo. 
+My personal blog and website repo.
 
 Based on the Gatsby Theme [`@lekoarts/gatsby-theme-minimal-blog`](https://github.com/LekoArts/gatsby-themes/tree/master/themes/gatsby-theme-minimal-blog).
+
+To launch the Gatsby and Netlify dev environments run
+
+```
+netlify dev
+```
+
+Netlify CLI is not a requirement but you will need it if you want to run APIs and functions. If you just need the static website dev environment you can run
+
+```
+gatsby develop
+```
 
 ## API
 
@@ -19,6 +31,7 @@ curl https://kaanuzdogan.com/api/nowListening
 ```
 
 Returns a JSON file of format:
+
 ```javascript
 {
   "album":"Her Tape #2",
