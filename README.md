@@ -45,7 +45,7 @@ Returns a JSON file of format:
 
 ## To-Do
 
-- Add comments
-- Test if newsletter is being sent when a new post is made
-- Avoid images being too high
-- Keep images smaller and enlarge images on click
+- [x] ~~Add comments~~ (added Disqus, self hosting takes too long)
+- [] Test if newsletter is being sent when a new post is made
+- [] Avoid images being too large in height
+- [] Keep images smaller and enlarge images on click

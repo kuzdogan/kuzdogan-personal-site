@@ -1,9 +1,10 @@
 /** @jsx jsx */
-import { jsx, Heading } from "theme-ui"
+import { Disqus } from 'gatsby-plugin-disqus'
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import React from "react"
-import Layout from "./layout"
+import { Heading, jsx } from "theme-ui"
 import ItemTags from "./item-tags"
+import Layout from "./layout"
 import SEO from "./seo"
 
 type PostProps = {
@@ -66,6 +67,13 @@ const Post = ({ data: { post } }: PostProps) => (
       }}
     >
       <MDXRenderer>{post.body}</MDXRenderer>
+    </section>
+    <section>
+      <Disqus config={{
+            url: post.canonicalUrl,
+            identifier: post.slug,
+            title: post.title,
+      }}/>
     </section>
   </Layout>
 )

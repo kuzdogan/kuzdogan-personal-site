@@ -53,6 +53,12 @@ module.exports = {
       options: newsletterFeed('Kaan Uzdoğan\'s Personal Site'),
     },
     {
+      resolve: `gatsby-plugin-disqus`,
+      options: {
+        shortname: `kaanuzdogan`
+      }
+    },
+    {
       resolve: `gatsby-plugin-google-gtag`,
       options: {
         trackingIds: [
