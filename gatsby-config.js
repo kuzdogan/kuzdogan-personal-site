@@ -55,7 +55,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-disqus`,
       options: {
-        shortname: `kaanuzdogan`
+        shortname: process.env.GATSBY_SHORTNAME
       }
     },
     {
