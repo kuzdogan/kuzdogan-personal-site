@@ -26,7 +26,7 @@ module.exports = (title) => ({
             .replace(/"\/static\//g, `"${siteUrl}/static/`)
             .replace(/,\s*\/static\//g, `,${siteUrl}/static/`);
           return {
-            title: 'NOTATTITLE',
+            title: post.title,
             date: post.date,
             excerpt: post.excerpt,
             url: siteUrl + post.slug,

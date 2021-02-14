@@ -20,6 +20,7 @@ module.exports = {
       resolve: `@lekoarts/gatsby-theme-minimal-blog`,
       // See the theme's README for all available options
       options: {
+        mdx: false, // Config .mdx .md below in gatsby-plugin-mdx
         feedTitle: 'Kaan Uzdoğan\'s Personal Site',
         navigation: [
           {
@@ -46,6 +47,24 @@ module.exports = {
           }
         ],
         formatString: 'DD MMMM YYYY'
+      },
+    },
+    {
+      resolve: `gatsby-plugin-mdx`,
+      options: {
+        extensions: [`.mdx`, `.md`],
+        gatsbyRemarkPlugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 960,
+              backgroundColor: 'transparent',
+              quality: 100,
+              // wrapperStyle: "max-height: 450px",
+              linkImagesToOriginal: true,
+            },
+          },
+        ]
       },
     },
     {
