@@ -39,7 +39,7 @@ const Homepage = ({ posts }: PostsProps) => {
       <section sx={{ mb: [4, 5], p: { fontSize: [1, 2, 3], mt: [1, 2] }, variant: `section_hero` }}>
         <Hero />
       </section>
-      <section sx={{ mb: [4, 5], fontSize: [1, 2] }}>
+      <section sx={{ mb: [4, 5], fontSize: [1, 2], display: 'none' }} >
         <h2
           sx={{ fontWeight: `medium`, fontSize: [3, 4], fontFamily: `heading`, lineHeight: `heading`, color: `heading`, textAlign: ["left", "center"] }}
         >
