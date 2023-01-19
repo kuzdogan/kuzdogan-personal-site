@@ -191,7 +191,7 @@ Unlike address appearances, I don't think this fits the Sourcify use case:
 
 Remember that an address-appearance for an address is constantly growing. If you transacted with your address, your address appearance will be included in the new volume so you need to download the new volumes too. With an address this is not the case. A contract address is only verified once and that's it. So IMHO, merging an already identifiable immutable data into a larger chunk is not ideal.
 
-That brings me to thinking, can we get away with just (again blockchain similarities) publishing the volumes (a block), that contains each new verified contract (transactions) and new root hash (chain head block hash)?
+That brings me to thinking, can we get away with just (again blockchain similarities) publishing the volumes (a block), that contains each new verified contract (transactions) and the new root hash of the whole repo (chain head block hash)?
 
 Can we just publish:
 
