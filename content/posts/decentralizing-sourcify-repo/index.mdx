@@ -116,7 +116,7 @@ Let's focus back to Sourcify. The problems were:
 
 Sourcify repo is also an "ever growing" repo with immutable files. A verified contract would never change, unlike a traditional database. We can also have a similar manifest and periodically announce the newly verified contracts. Whenever say, 1000 new contracts are verified on a chain, publish a new chunk and update the manifest CID on the smart contract.
 
-Similar to Unchained Index, there can be multiple publishers. Additionally publishers can listen other publishers to keep their repositories in sync. Because each verifier have different providers of verified contracts and there's no single global source to follow and sync like a blockchain. Alice may verify their contract on Sourcify but Bob might choose to verify on Blockscout. This unfortunately disperses the global database of verified contracts, and you need to check each verifier if you want to access the contract source code.
+Similar to Unchained Index, there can be multiple publishers. Additionally publishers can listen other publishers to keep their repositories in sync. Because each verifier have different providers of verified contracts and there's no single global source to follow and sync like a blockchain. Alice may verify their contract on Sourcify but Bob might choose to verify on Blockscout. This unfortunately splits the global database of verified contracts, and you need to check each verifier if you want to access the contract source code.
 
 Publishers listening to each other and syncing makes sense because contract verification is deterministic. If, say, Blockscout publishes a new chunk with a new manifest CID, Sourcify can download the new chunk, run through each contract and verify them, and theoretically we should reach the same manifest CID or root CID. Next time, Sourcify publishes a new set of verified contracts, Blockscout verifies all contracts, gets (hopefully) the same CID and publishes on the smart contract.
 
@@ -129,7 +129,7 @@ This itself behaves like a blockchain. Someone announces a new block, others lis
 
 This would solve the problems above:
 
-- ~~**Problem 1**: There is no single open database of verified contracts.
+- ~~**Problem 1**: There is no single open database of verified contracts.~~
   - We have a single open database of verified contracts.
 - ~~**Problem 2:** Yes, Sourcify repo is on IPFS but it can only be updated by Sourcify. People can’t contribute by default~~
   - People can contribute by default by publishing new contracts.
@@ -159,11 +159,11 @@ Publish a new volume every 1000 new contracts (on a single chain). Each volume i
 
 I don't like this structure for several reasons:
 
-1. The reasoning for chapters is to make the user download more data then they need and pin the data.
-   1. I don't think the decentralization of data is going to be a problem if there are multiple publishers, pinning services, and volunteers.
-   2. A contract should be directly accessible with its chain+address identifier. Consider a block explorer frontend wanting to pull the verified contract with IPFS ([Otterscan does this](https://sepolia.otterscan.io/address/0x2738d13E81e30bC615766A0410e7cF199FD59A83/contract) if you choose "Resolve IPNS" from top-right). The frontend should not be required to download all the chapters on all volumes to serve the source files.
-   3. I can see the number of volumes getting unreasonably high at some point, as the user need to download all the chapters of all volumes.
-   4. There is no client like `chifra` to "consume" the verified contract. The files being downloaded are just text files. The user just want to see a single contract, likely on a web interface. How can we make them run an ipfs node and pin the files?
+- The reasoning for chapters is to make the user download more data then they need and pin the data but is this needed and possible?
+  - I don't think the decentralization of data is going to be a problem if there are multiple publishers, pinning services, and volunteers.
+  - There is no client like `chifra` to "consume" the verified contract. The files being downloaded are just text files. The user just want to see a single contract, likely on a web interface. How can we make them run an ipfs node and pin the files?
+- A contract should be directly accessible with its chain+address identifier. Consider a block explorer frontend wanting to pull the verified contract with IPFS ([Otterscan does this](https://sepolia.otterscan.io/address/0x2738d13E81e30bC615766A0410e7cF199FD59A83/contract) if you choose "Resolve IPNS" from top-right). The frontend should not be required to download all the chapters on all volumes to serve the source files.
+- I can see the number of volumes getting unreasonably high at some point, as the user need to download all the chapters of all volumes.
 
 Sourcify's repository is structured as follows:
 `https://repo.sourcify.dev/contracts/{matchType}/{chainId}/{address}/`
