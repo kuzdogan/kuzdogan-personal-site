@@ -4,6 +4,20 @@ My personal blog and website repo.
 
 Based on the Gatsby Theme [`@lekoarts/gatsby-theme-minimal-blog`](https://github.com/LekoArts/gatsby-themes/tree/master/themes/gatsby-theme-minimal-blog).
 
+## Install
+
+Install with
+
+```
+npm install
+```
+
+### Apple Silicone
+
+If you have an Apple M processor you need to install the compatible `vips` dependency. Follow the instructions [here](https://github.com/nuxt/image/issues/204) (except the `@nuxt/image` install part).
+
+## Run
+
 To launch the Gatsby and Netlify dev environments run
 
 ```
