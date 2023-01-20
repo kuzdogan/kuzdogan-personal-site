@@ -41,7 +41,7 @@ Say the owner of the address `0xea123` calls the contract `0xcc123` at block `1,
 
 All this information is found in the "manifest" file. The file looks like this:
 
-````json
+```json
 {
   "version": "trueblocks-core@v0.40.0",
   "chain": "mainnet",
@@ -54,20 +54,22 @@ All this information is found in the "manifest" file. The file looks like this:
       "indexHash": "QmTbFshRSdBFoC6AvBgzdRJ6Vgb9cVL3yTprYQ24XqHTqx"
     },
     {
-    // and so on...
+      // and so on...
     }
   ]
-}```
+}
+```
 
 The relevant part is the `chunks` array. The `range` contains the first block where the 1st address appearance is, and the last block where 2,000,000th address appearance is. The bloom hash is the CID of the chunk's bloom filter, and the index is the relevant data you need to download, if your address appears in this chunk.
 
 The TrueBlocks client listens to the blockchain continuously, runs each transaction itself, and indexes the addresses whenever an address appears in a transaction. When the number of indexed address appearances hit 2,000,000 it appends the new chunk onto this `chunks` array and publishes the new manifest (i.e. the manifest IPFS CID).
 
 The "head" of the index, i.e. the latest manifest CID is published inside a [smart contract](https://etherscan.io/address/0x0c316b7042b419d07d343f2f4f5bd54ff731183d). The contract is permissionless, that is anyone can publish their own manifest, anyone can be a publisher. You'd choose a publisher you trust and see what they published. If you trust TrueBlocks, [they announce](https://trueblocks.io/docs/install/build-unchained-index/#supplementary-how-can-i-see-when-the-manifest-was-last-published) their address `0xf503017d7baf7fbc0fff7492b751025c6a78179b` and you look for the latest manifest CID by:
+
 ```solidity
 string latestManifest = manifestHashMap["0xf503017d7baf7fbc0fff7492b751025c6a78179b"]["mainnet"];
 // latestManifest = "QmRGCuUaTH9yJTuGmgUv7N31qunLC4Vvqzvxyq1C1tMGF7"
-````
+```
 
 [Try it yourself](https://etherscan.io/address/0x0c316b7042b419d07d343f2f4f5bd54ff731183d#readContract)
 
