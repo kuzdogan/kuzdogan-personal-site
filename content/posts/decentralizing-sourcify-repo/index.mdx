@@ -11,7 +11,7 @@ tags:
 
 _(I'm updating this post time to time. Please check the [commit history](https://github.com/kuzdogan/kuzdogan-personal-site/blob/master/content/posts/decentralizing-sourcify-repo/index.mdx) for changes.)_
 
-This is a post to brainstorm about how to further decentralize the Sourcify's verified contracts repository. This was sparked by [our discussions](https://github.com/perama-v/perama-v.github.io/pull/78) with [perama.eth](https://twitter.com/eth_worm) based on their ideas laid out in a [series of articles](https://perama-v.github.io/ethereum/protocol/poking/part_6) for a [Time Ordered Distributable Database](https://github.com/perama-v/TODD) (TODD). You don't need to read those resources to navigate this post but I recommend reading if you want to dig deeper. Kudos to perama.eth for initiating this brainstorming.
+This is a post to brainstorm about how to further decentralize the Sourcify's verified contracts repository. This was sparked by [our discussions](https://github.com/perama-v/perama-v.github.io/pull/78) with [perama.eth](https://twitter.com/eth_worm) based on their ideas laid out in a [series of articles](https://perama-v.github.io/ethereum/protocol/poking/part_6) for a [Time Ordered Distributable Database](https://github.com/perama-v/TODD) (TODD). TODD and other ideas have also been based on the amazing work done by [TrueBlocks](https://trueblocks.io/) and their [Unchained Index specification](https://trueblocks.io/papers/2022/file-format-spec-v0.40.0-beta.pdf). Kudos to both of them. You don't need to read those resources to navigate this post but I recommend reading if you want to dig deeper.
 
 ## Background
 
@@ -19,7 +19,7 @@ This is a post to brainstorm about how to further decentralize the Sourcify's ve
 
 The part I want to focus here is the **decentralization**. Unlike other block explorers with verification functionality, Sourcify's repository of verified contracts is published on IPFS. The root CID of the repository is periodically updated under the IPNS [/ipns/repo.sourcify.dev](https://ipfs.io/ipns/repo.sourcify.dev). So anyone can easily download and pin the whole repository. In case Sourcify suddenly stops working, the older versions of the repo is accessible via other pinning services (thanks to [web3.storage](https://web3.storage/) and [estuary.tech](https://estuary.tech/)) and volunteers (such as [wmitsuda](https://github.com/wmitsuda/otterscan/blob/develop/docs/ipfs.md#pinning-sourcify-locally)).
 
-Now this is already an improvement from closed silos of verified contracts, having to scrape websites against their ToS etc. You know the deal. If Sourcify cease to exists, the verified contracts will be available, yes. But still Sourcify is the single owner of the IPNS keys and more or less the single source of truth. Only Sourcify can update the repo IPNS. Everyone else is watching and following Sourcify and no one is able to contribute. I said "**older** versions of the repo" above on purpose. If Sourcify stops, the repo stalls.
+Now this is already an improvement from closed silos of verified contracts, having to scrape websites against their ToS etc. You know the deal. If Sourcify ceases to exist, the verified contracts will be available, yes. But still Sourcify is the single owner of the IPNS keys and more or less the single source of truth. Only Sourcify can update the repo IPNS. Everyone else is watching and following Sourcify and no one is able to contribute. I said "**older** versions of the repo" above on purpose. If Sourcify stops, the repo stalls.
 
 This is where the inspiration from the TODD might be useful. TODD itself is inspired from the Unchained Index.
 
@@ -87,9 +87,9 @@ Another neat feature of this structure is the decentralization of the data. When
 
 ## Generalizing the Unchained Index
 
-If you zoom out, you'll see this kind of publishing of time ordered chunks is a generalizable concept. Another instance of such a database is the "address-appearance-index" derived from the Unchained Index by [perama.eth](https://twitter.com/eth_worm) . Here, the periodically published "chunks" are renamed into "volumes", and the volumes contain functional "chapters", borrowing the nomenclature from book publishing. The chapters are groupings of the data you need to get that will contain the data you are looking for. If I'm looking for an address appearance of `0xbc1df...`, I'd get the chapters `0xbc`. The next chapter (that I don't need) would be `0xbd`.
+If you zoom out, you'll see this kind of publishing of time ordered chunks is a generalizable concept. Another instance of such a database is the "address-appearance-index" derived from the Unchained Index by [perama.eth](https://twitter.com/eth_worm). Here, the periodically published "chunks" are renamed into "volumes", and the volumes contain functional "chapters", borrowing the nomenclature from book publishing. The chapters are groupings of the data you need to get that will contain the data you are looking for. If I'm looking for an address appearance of `0xbc1df...`, I'd get the chapters `0xbc`. The next chapter (that I don't need) would be `0xbd`.
 
-A volume is published every 100,000 blocks and a chapter contains addresses that share two starting characters `0xab...`. Because it is two hex characters `16 x 16 = 256`, and chapter will be the 1/256th of the whole data. If you want to get the address appearance of the address `0xbc1bdf...` you will have to go through every volume, download the chapters `0xbc` of every volume, and check your adderess' appearance. The goal is to nudge people to downloading more data than they need and pin. I don't need all other address appearances in the chapter `0xbc` except `0xbc1dbf...` but I have to.
+A volume is published every 100,000 blocks and a chapter contains addresses that share two starting characters `0xab...`. Because it is two hex characters `16 x 16 = 256`, and chapter will be the 1/256th of the whole data. If you want to get the address appearance of the address `0xbc1bdf...` you will have to go through every volume, download the chapters `0xbc` of every volume, and check your adderess' appearance. The goal is to nudge people to downloading more data than they need and pin. I don't need all other address appearances in the chapter `0xbc` except `0xbc1dbf...` but I have to. In turn, I start contributing to the network by serving the data.
 
 Quoting from [perama.eth](https://perama-v.github.io/ethereum/protocol/poking/part_6):
 
@@ -165,7 +165,7 @@ How can we structure the repo in the TODD way?
 
 perama [suggests](https://github.com/perama-v/perama-v.github.io/pull/78#issuecomment-1383840233) the following structure:
 
-Publish a new volume every 1000 new contracts (on a single chain). Each volume is split into 256 chapters of two first characters of an address `0x00`, `0x01` ... `0xff`.
+Publish a new volume every 1000 new contracts (on a single chain). Each volume is split into 256 chapters of two first characters of an address `0x00`, `0x01` ... `0xff`. Bear in mind that these parameters are just initial suggestions and need to be carefully chosen for the system to work.
 
 - volume 1
   - chapter `0x00`
@@ -183,7 +183,7 @@ This means, if a user wants to get the contract `0xde0b295...b697bae` they will 
 
 Unlike address appearances, I don't think this fits the Sourcify use case:
 
-- The reasoning for chapters is to make the user download more data then they need and pin the data but is this needed and possible?
+- The reasoning for chapters is to make the user download slightly more data then they need and pin the data but is this needed and possible?
   - I don't think the decentralization of data is going to be a problem if there are multiple publishers, pinning services, and volunteers.
   - There is no client like `chifra` to "consume" the verified contract. The files being downloaded are just text files. The user just want to see a single contract, likely on a web interface. How can we make them run an ipfs node and pin the files?
 - A contract should be directly accessible with its chain+address identifier. Consider a block explorer frontend wanting to pull the verified contract with IPFS ([Otterscan does this](https://sepolia.otterscan.io/address/0x2738d13E81e30bC615766A0410e7cF199FD59A83/contract) if you choose "Resolve IPNS" from top-right). The frontend should not be required to download all the chapters on all volumes to serve the source files.
