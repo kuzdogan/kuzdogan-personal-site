@@ -8,8 +8,6 @@ tags:
   - Japan
 ---
 
-# Recommendations from My Japan Trip
-
 I recently went to Japan for two weeks and had an amazing time. It consisted of a week in Hakuba for skiing/snowboarding 🏂, 2 days in Kyoto, and 4 days in Tokyo. For the friends and for the rest of the internet, here are my fav places to eat, drink, and visit. This will not include the obvious tourist attractions and information you can find on any travel blog. Search for "Japan/Tokyo/Kyoto travel blog" and read few of them. You'll find the real gems in reddit. Search "Places to eat Tokyo reddit" or about anything else you're interested in. I've found the best recommendations on reddit.
 
 # Tokyo
