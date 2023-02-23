@@ -157,7 +157,7 @@ https://ipfs.io/ipns/repo.sourcify.dev/contracts/full_match/11155111/0x2738d13E8
 
 Where `matchType` is either `full_match` or `partial_match`. [See more](https://docs.sourcify.dev/docs/full-vs-partial-match/).
 
-The IPNS resolves to the lates root CID of the repository. Currently, the IPNS is updated every 6 hours.
+The IPNS resolves to the latest root CID of the repository. Currently, the IPNS is updated every 6 hours.
 
 How can we structure the repo in the TODD way?
 
@@ -191,7 +191,7 @@ Unlike address appearances, I don't think this fits the Sourcify use case:
 
 #### Without chapters
 
-Remember that an address-appearance for an address is constantly growing. If you transacted with your address, your address appearance will be included in the new volume so you need to download the new volumes too. With an address this is not the case. A contract address is only verified once and that's it. So IMHO, merging an already identifiable immutable data into a larger chunk is not ideal.
+Remember that an address-appearance for an address is constantly growing. If you transacted with your address, your address appearance will be included in the new volume so you need to download the new volumes too. With contract source codes this is not the case. A contract address is only verified once and that's it. So IMHO, merging an already identifiable immutable data into a larger chunk (chapter) is not ideal.
 
 That brings me to thinking, can we get away with just (again blockchain similarities) publishing the volumes (a block), that contains each new verified contract (transactions) and the new root hash of the whole repo (chain head block hash)?
 
@@ -200,7 +200,7 @@ Can we just publish:
 - volumes that contain the diff, i.e. the newly verified contracts
 - and the final root hash of the repo, i.e. the result after processing the diff.
 
-Now if there's a root hash `Qmf9Bv...c1Mq4` manifested by multiple publishers you trust you can do
+Now if there's a root hash `Qmf9Bv...c1Mq4` for a chain manifested by multiple publishers you trust you can do
 `ipfs/Qmf9Bv...c1Mq4/contracts/full_match/0x2738d13E81e30bC615766A0410e7cF199FD59A83/` and get the contract.
 
 Note that there is no `chainId` here because different publishers can choose to verify different chains.
