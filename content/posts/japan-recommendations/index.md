@@ -53,6 +53,8 @@ I recently went to Japan for two weeks and had an amazing time. It consisted of 
 
 - Max. utilize the convenience stores: Eat a lot of onigiri, buns, grab drinks. I liked high alcohol "Chuhai"s. Don't forget to try the Lawson egg sandwich, [Anthony Bourdain's shameful vice](https://www.youtube.com/watch?v=v1LOiRfMc08).
 
+- Clothing is cheap! Come with an empty suticase and buy clothes here. Uniqlo is cheaper than in Europe or US. All brands have flagships stores with good prices. You can get tax free everywhere. Carry your passport with you.
+
 - Can't point out places in Tokyo or Kyoto but must try these:
   - Okonomiyaki (savory pancake)
   - Takoyaki (octopus balls)
