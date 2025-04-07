@@ -28,6 +28,7 @@
     "gatsby-plugin-netlify": "^2.4.0",
     "gatsby-plugin-offline": "^3.3.3",
     "gatsby-plugin-sitemap": "^2.5.1",
+    "gatsby-plugin-umami": "^0.1.5",
     "gatsby-plugin-webpack-bundle-analyser-v2": "^1.1.13",
     "gatsby-remark-images": "^3.11.0",
     "isomorphic-unfetch": "^3.1.0",

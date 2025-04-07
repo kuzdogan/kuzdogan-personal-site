@@ -1,27 +1,39 @@
 require(`dotenv`).config({
   path: `.env`,
-})
-const newsletterFeed = require(`./src/@lekoarts/gatsby-theme-minimal-blog/utils/newsletterFeed`)
-const shouldAnalyseBundle = process.env.ANALYSE_BUNDLE
+});
+const newsletterFeed = require(`./src/@lekoarts/gatsby-theme-minimal-blog/utils/newsletterFeed`);
+const shouldAnalyseBundle = process.env.ANALYSE_BUNDLE;
 
 module.exports = {
   siteMetadata: {
-    siteTitle: 'Kaan Uzdoğan',
+    siteTitle: "Kaan Uzdoğan",
     siteTitleAlt: `Kaan Uzdoğan - Personal Site`,
-    siteHeadline: 'Kaan Uzdoğan - Personal Site',
+    siteHeadline: "Kaan Uzdoğan - Personal Site",
     siteUrl: `https://kaanuzdogan.com`,
     author: `@kaanuzdogan`,
-    siteLanguage: 'en',
-    siteImage: '/banner.jpg',
-    siteDescription: 'Personal Blog and Website of Kaan Uzdogan',
+    siteLanguage: "en",
+    siteImage: "/banner.jpg",
+    siteDescription: "Personal Blog and Website of Kaan Uzdogan",
   },
   plugins: [
+    {
+      resolve: `gatsby-plugin-umami`,
+      options: {
+        websiteId: "8d979d6a-1b2d-40ac-a122-11ea5bade564",
+        srcUrl: "https://cloud.umami.is/script.js",
+        includeInDevelopment: false,
+        autoTrack: true,
+        respectDoNotTrack: true,
+        dataCache: false,
+        dataDomains: "kaanuzdogan.com",
+      },
+    },
     {
       resolve: `@lekoarts/gatsby-theme-minimal-blog`,
       // See the theme's README for all available options
       options: {
         mdx: false, // Config .mdx .md below in gatsby-plugin-mdx
-        feedTitle: 'Kaan Uzdoğan\'s Personal Site',
+        feedTitle: "Kaan Uzdoğan's Personal Site",
         navigation: [
           {
             title: `Blog`,
@@ -43,10 +55,10 @@ module.exports = {
           },
           {
             name: `Github`,
-            url: `https://github.com/kuzdogan`
-          }
+            url: `https://github.com/kuzdogan`,
+          },
         ],
-        formatString: 'DD MMMM YYYY'
+        formatString: "DD MMMM YYYY",
       },
     },
     {
@@ -58,24 +70,24 @@ module.exports = {
             resolve: `gatsby-remark-images`,
             options: {
               maxWidth: 960,
-              backgroundColor: 'transparent',
+              backgroundColor: "transparent",
               quality: 100,
               // wrapperStyle: "max-height: 450px",
               linkImagesToOriginal: true,
             },
           },
-        ]
+        ],
       },
     },
     {
       resolve: `gatsby-plugin-feed`,
-      options: newsletterFeed('Kaan Uzdoğan\'s Personal Site'),
+      options: newsletterFeed("Kaan Uzdoğan's Personal Site"),
     },
     {
       resolve: `gatsby-plugin-disqus`,
       options: {
-        shortname: process.env.DISQUS_SHORTNAME
-      }
+        shortname: process.env.DISQUS_SHORTNAME,
+      },
     },
     {
       resolve: `gatsby-plugin-google-gtag`,
@@ -121,11 +133,12 @@ module.exports = {
       },
     },
     {
-      resolve: 'gatsby-plugin-mailchimp',
+      resolve: "gatsby-plugin-mailchimp",
       options: {
-        endpoint: 'https://kaanuzdogan.us7.list-manage.com/subscribe/post?u=86ff29b1f460007d00cf6f4f6&amp;id=341da9b4a6',
+        endpoint:
+          "https://kaanuzdogan.us7.list-manage.com/subscribe/post?u=86ff29b1f460007d00cf6f4f6&amp;id=341da9b4a6",
         timeout: 3500,
       },
     },
   ].filter(Boolean),
-}
+};
