@@ -102,6 +102,10 @@
     & :where(code):not(pre code) {
       color: var(--color-indigo-500);
     }
+    & p {
+      margin-bottom: 0.75rem;
+      margin-top: 0.75rem;
+    }
   }
 
   .prose-invert {
