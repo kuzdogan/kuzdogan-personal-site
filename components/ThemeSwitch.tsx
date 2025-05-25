@@ -22,7 +22,7 @@ const ThemeSwitch = () => {
 
   return (
     <button
-      className="flex items-center justify-center hover:text-amber-500 dark:hover:text-amber-400"
+      className="hover:text-primary-500 dark:hover:text-primary-400 flex items-center justify-center"
       onClick={toggleTheme}
       aria-label={`Switch to ${resolvedTheme === 'dark' ? 'light' : 'dark'} theme`}
     >

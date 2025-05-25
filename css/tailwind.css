@@ -8,23 +8,23 @@
 @theme {
   /* Font families */
   --font-sans:
-    var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    var(--font-raleway), ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
     'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   --font-courier-prime:
     var(--font-courier-prime), ui-monospace, SFMono-Regular, Menlo, Monaco,
     /* Colors */
       /* Copied from https://tailwindcss.com/docs/theme#default-theme-variable-reference */
-    --color-primary-50: oklch(0.971 0.014 343.198);
-  --color-primary-100: oklch(0.948 0.028 342.258);
-  --color-primary-200: oklch(0.899 0.061 343.231);
-  --color-primary-300: oklch(0.823 0.12 346.018);
-  --color-primary-400: oklch(0.718 0.202 349.761);
-  --color-primary-500: oklch(0.656 0.241 354.308);
-  --color-primary-600: oklch(0.592 0.249 0.584);
-  --color-primary-700: oklch(0.525 0.223 3.958);
-  --color-primary-800: oklch(0.459 0.187 3.815);
-  --color-primary-900: oklch(0.408 0.153 2.432);
-  --color-primary-950: oklch(0.284 0.109 3.907);
+    --color-primary-50: oklch(0.971 0.014 243.198);
+  --color-primary-100: oklch(0.948 0.028 242.258);
+  --color-primary-200: oklch(0.899 0.061 243.231);
+  --color-primary-300: oklch(0.823 0.12 246.018);
+  --color-primary-400: oklch(0.718 0.202 249.761);
+  --color-primary-500: oklch(0.656 0.241 254.308);
+  --color-primary-600: oklch(0.592 0.249 260.584);
+  --color-primary-700: oklch(0.525 0.223 263.958);
+  --color-primary-800: oklch(0.459 0.187 263.815);
+  --color-primary-900: oklch(0.408 0.153 262.432);
+  --color-primary-950: oklch(0.284 0.109 263.907);
 
   --color-gray-50: oklch(0.985 0.002 247.839);
   --color-gray-100: oklch(0.967 0.003 264.542);
@@ -70,6 +70,7 @@
   a,
   button {
     outline-color: var(--color-primary-500);
+    cursor: pointer;
   }
 
   a:focus-visible,
