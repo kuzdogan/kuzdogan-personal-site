@@ -157,7 +157,17 @@ export default makeSource({
       remarkGfm,
       remarkCodeTitles,
       remarkMath,
-      remarkImgToJsx,
+      [
+        remarkImgToJsx,
+        {
+          // Enable relative image paths
+          staticDirs: ['data'],
+          // Optional: Add image optimization
+          imageSize: true,
+          // Optional: Add lazy loading
+          lazyLoad: true,
+        },
+      ],
       remarkAlert,
     ],
     rehypePlugins: [
