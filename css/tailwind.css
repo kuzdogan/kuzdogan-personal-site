@@ -83,6 +83,20 @@
 
 @layer utilities {
   .prose {
+    --tw-prose-body: var(--color-gray-900);
+    font-size: 0.9rem;
+    line-height: 1.55;
+
+    @media (min-width: 640px) {
+      font-size: 1.1rem;
+    }
+  }
+
+  .dark .prose {
+    --tw-prose-body: var(--color-gray-200);
+  }
+
+  .prose {
     & a {
       color: var(--color-primary-500);
       &:hover {
@@ -122,6 +136,14 @@
       color: var(--color-gray-100);
     }
   }
+}
+
+body {
+  background-color: oklch(0.975 0.015 65);
+}
+
+.dark body {
+  background-color: var(--color-gray-950);
 }
 
 .task-list-item::before {
