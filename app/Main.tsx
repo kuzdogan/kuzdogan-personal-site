@@ -25,11 +25,11 @@ export default function Home({ posts }) {
               Foundation.
             </p>
             <p className="md:text-lg">
-              I write my thoughts, experiences, and some technical stuff here.
+              I write my thoughts, experiences, and some <code>technical stuff</code> here.
             </p>
-            <p className="md:text-lg">
+            {/* <p className="md:text-lg">
               <Link href="/about">More about me</Link>.
-            </p>
+            </p> */}
           </div>
         </div>
         <div className="flex flex-row items-center justify-between">
