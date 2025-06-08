@@ -1,0 +1,73 @@
+---
+title: Docker Compose Execution and Consensus Client Setting for Ethereum Merge (PoS)
+date: 2022-06-30
+description: A docker-compose config for Ethereum Merge with Geth as the execution and Lodestar as the consensus client.
+tags:
+  - Ethereum
+  - Merge
+  - Proof of Stake
+  - PoS
+  - Docker
+---
+
+## Docker Compose Execution and Consensus Client Setting for Ethereum Merge (PoS)
+
+I've been trying to set up out geth client for the upcoming Merge on the Ropsten and Sepolia networks. There are many tutorials on the web that explain how to set it up on a server or a local machine. However things change slightly when docker comes into play, especially networking. Since forgetting the option `--authrpc.addr 0.0.0.0` costed me a near whole day of debugging, I wanted to share my final config.
+
+**Lesson learned: If you want cross-container communication you need to listen on all interfaces, not just on localhost, which is the default**
+
+The docker compose setup has both execution and consensus clients in the same file and I find it convenient. As the Execution Layer client I have go-ethereum (geth), and as the Consensus Layer client I have Lodestar. Here's the config:
+
+```yml
+version: '3.8'
+
+services:
+  execution:
+    image: ethereum/client-go:v1.10.20
+    container_name: geth-sepolia
+    # --http.addr and --authrpc.addr 0.0.0.0 to listen on all interfaces and not just localhost. Localhost wouldn't work with containers as they have differt ip's.
+    # add container name "geth-sepolia" to accepted --http.vhosts and --authrpc.vhosts
+    # geth v1.10.20 already has terminaltotaldifficulty (TTD) built-in but leaving for networks that need explicit stating.
+    # geth will open the authrpc and create a jwt if it detects merge i.e. TTD
+    command: |
+      --syncmode full --snapshot=false --sepolia --http --http.api engine,personal,eth,net,web3
+      --http.addr 0.0.0.0 --http.corsdomain '*' --http.vhosts "localhost,geth-sepolia"
+      --override.terminaltotaldifficulty 17000000000000000 --authrpc.vhosts "localhost,geth-sepolia"
+      --authrpc.jwtsecret /root/.ethereum/sepolia/geth/jwtsecret --authrpc.addr 0.0.0.0
+    ports: # Set the port you want to access the execution client RPC on your host. Here 8546
+      - '8546:8545'
+    volumes: # You might have to mkdir ~/.ethereum
+      - type: bind
+        source: ~/.ethereum
+        target: /root/.ethereum
+    networks:
+      - geth
+    stop_grace_period: 3m # long grace period to avoid unclean shutdown
+    restart: always
+
+  consensus:
+    image: chainsafe/lodestar:v0.38.1
+    container_name: lodestar-sepolia
+    # Shares the same root folder with geth. Can easily share the jwtsecret
+    # execution.urls i.e. engine API, authrpc... The connection to the execution client
+    # eth1.providerUrls for the execution JSON-RPC
+    command: |
+      beacon --network sepolia --rootDir /root/.ethereum --terminal-total-difficulty-override "17000000000000000"
+      --execution.urls http://geth-sepolia:8551 --eth1.providerUrls http://geth-sepolia:8545 --jwt-secret /root/.ethereum/sepolia/geth/jwtsecret
+    ports:
+      - '9596:9596'
+    volumes:
+      - type: bind
+        source: ~/.ethereum
+        target: /root/.ethereum
+    networks:
+      - geth
+    stop_grace_period: 3m
+    restart: always
+
+networks:
+  geth:
+
+volumes:
+  sepolia:
+```
