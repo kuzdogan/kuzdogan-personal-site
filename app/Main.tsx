@@ -21,8 +21,8 @@ export default function Home({ posts }) {
               based in Berlin 🇩🇪.
             </p>
             <p className="md:text-lg">
-              I am working on <Link href="https://sourcify.dev">Sourcify</Link> at the Ethereum
-              Foundation.
+              I am working on <Link href="https://sourcify.dev">Sourcify</Link> at the{' '}
+              <Link href="https://argot.org">Argot Collective</Link>.
             </p>
             <p className="md:text-lg">
               I write my thoughts, experiences, and some <code>technical stuff</code> here.
