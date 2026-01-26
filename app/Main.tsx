@@ -18,7 +18,7 @@ export default function Home({ posts }) {
             <p className="md:text-lg">I'm Kaan. This is my place on the internet 🌎.</p>
             <p className="md:text-lg">
               I'm a curious computer science grad and software developer from Turkey 🇹🇷, currently
-              based in Berlin 🇩🇪.
+              based in Istanbul 🇹🇷.
             </p>
             <p className="md:text-lg">
               I am working on <Link href="https://sourcify.dev">Sourcify</Link> at the{' '}
