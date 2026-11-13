@@ -3,6 +3,7 @@ import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
 import { formatDate } from 'pliny/utils/formatDate'
 import NewsletterForm from 'pliny/ui/NewsletterForm'
+import WorkingOn from '@/components/WorkingOn'
 
 const MAX_DISPLAY = 5
 
@@ -27,9 +28,9 @@ export default function Home({ posts }) {
             <p className="md:text-lg">
               I write my thoughts, experiences, and some <code>technical stuff</code> here.
             </p>
-            {/* <p className="md:text-lg">
+            <p className="md:text-lg">
               <Link href="/about">More about me</Link>.
-            </p> */}
+            </p>
           </div>
         </div>
         <div className="flex flex-row items-center justify-between">
@@ -64,6 +65,9 @@ export default function Home({ posts }) {
             )
           })}
         </ul>
+        <div className="pt-12">
+          <WorkingOn />
+        </div>
       </div>
       {/* {siteMetadata.newsletter?.provider && (
         <div className="flex items-center justify-center pt-4">
